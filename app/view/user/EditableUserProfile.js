@@ -9,8 +9,8 @@
  * and open the template in the editor.
  */
 
-Ext.define('SenchaLogin.view.user.EditableUserProfile',{extend : 'Ext.container.Container',
-	xtype : 'EditableUserProfile',
+Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.container.Container',
+	xtype : 'editableUserProfile',
 	renderTo : Ext.getBody(),
 	id : 'EditableUserProfileID',
 	layout : {

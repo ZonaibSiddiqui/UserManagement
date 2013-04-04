@@ -1,6 +1,6 @@
-Ext.define('SenchaLogin.view.login.ForgotPassword', {
+Ext.define('UserManagement.view.login.ForgotPassword', {
 	extend : 'Ext.Panel',
-	xtype: 'ForgotPassword',
+	xtype: 'forgotPassword',
 	config : {
 		id : 'ForgotPasswordID',
 		scrollable : true,

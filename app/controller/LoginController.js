@@ -1,4 +1,4 @@
-Ext.define('SenchaLogin.controller.LoginController', {
+Ext.define('UserManagement.controller.loginController', {
     extend: 'Ext.app.Controller',
     config : {
 	    init : function(){

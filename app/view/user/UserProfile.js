@@ -3,8 +3,8 @@
  * and open the template in the editor.
  */
 
-Ext.define('SenchaLogin.view.user.UserProfile', {extend: 'Ext.container.Container',
-    xtype: 'UserProfile',
+Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Container',
+    xtype: 'userProfile',
     renderTo: Ext.getBody(),
     id: 'UserProfileID',
     layout: {
@@ -200,9 +200,9 @@ Ext.define('SenchaLogin.view.user.UserProfile', {extend: 'Ext.container.Containe
                 }
             ]
         }
-    ],
-    listeners: {
-//        afterRender: function () {
+    ]
+//    ,listeners: {
+//        afte0rRender: function () {
 //            var userProfileID = Ext.decode(localStorage.getItem('userProfileID'))
 //            console.log(userProfileID)
 //            var userStore = Ext.getStore('UserStore');
@@ -217,5 +217,5 @@ Ext.define('SenchaLogin.view.user.UserProfile', {extend: 'Ext.container.Containe
 //
 //            })
 //        }
-    }
+//    }
 })

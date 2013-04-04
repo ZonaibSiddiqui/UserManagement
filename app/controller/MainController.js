@@ -6,14 +6,14 @@
  * To change this template use File | Settings | File Templates.
  */
 
-Ext.define('SenchaLogin.controller.MainController', {
+Ext.define('UserManagement.controller.mainController', {
     extend: 'Ext.app.Controller',
 
     config : {
         init : function(){
             this.control({
                 '[action = loginActionBtn]' : {
-                    mouseout : this.loginActionBtnFn
+                    click : this.loginActionBtnFn
                 }
             })
         }
@@ -21,8 +21,7 @@ Ext.define('SenchaLogin.controller.MainController', {
     },
 
     loginActionBtnFn : function(){
-        console.log('logout button')
-//       window.location = 'http://localhost:8080/SenchaLogin/login.html'
+        window.location = 'http://localhost:8080/UserManagement/login.html'
     }
 })
 

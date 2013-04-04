@@ -1,6 +1,6 @@
-Ext.define('SenchaLogin.store.UserStore', {
+Ext.define('UserManagement.store.UserStore', {
     extend: 'Ext.data.Store',
-    model: 'SenchaLogin.model.UserModel',
+    model: 'UserManagement.model.UserModel',
     remoteSort: true,
     pageSize: itemsPerPage,
     autoLoad: false,

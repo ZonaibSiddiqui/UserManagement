@@ -5,9 +5,9 @@ Ext.Loader.setPath('Ext.ux', 'ext/src/ux');
 Ext.application({
 
     controllers : [
-        'LoginController',
-        'UserController',
-        'MainController'
+        'loginController',
+        'userController',
+        'mainController'
     ],
     views :[
         'Viewport',
@@ -16,11 +16,11 @@ Ext.application({
         'login.LoginForm'
     ],
     requires : [
-        'SenchaLogin.view.Viewport',
-        'SenchaLogin.view.user.User',
-        'SenchaLogin.view.user.Profile',
-        'SenchaLogin.view.user.EditableUserProfile',
-        'SenchaLogin.view.user.UserProfile',
+        'UserManagement.view.Viewport',
+        'UserManagement.view.user.User',
+        'UserManagement.view.user.Profile',
+        'UserManagement.view.user.EditableUserProfile',
+        'UserManagement.view.user.UserProfile',
         'Ext.grid.plugin.CellEditing',
         'Ext.grid.*',
         'Ext.data.*',
@@ -40,6 +40,6 @@ Ext.application({
 	stores : [
          'UserStore'
 	],
-    name : 'SenchaLogin',
+    name : 'UserManagement',
     autoCreateViewport : true
 });

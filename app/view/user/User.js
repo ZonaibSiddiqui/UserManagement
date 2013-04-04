@@ -1,7 +1,7 @@
-Ext.define('SenchaLogin.view.user.User', {
+Ext.define('UserManagement.view.user.User', {
     extend: 'Ext.tab.Panel',
     renderTo: Ext.getBody(),
-    xtype: 'UserList',
+    xtype: 'userList',
     id: 'UserListID',
     requires: [
         'Ext.toolbar.Paging',
@@ -24,44 +24,22 @@ Ext.define('SenchaLogin.view.user.User', {
         pack: 'center',
         align: 'stretch'
     },
-
+    enableTabScroll: true,
+//    autoScroll : true,
+    bodyStyle: {
+        background: '#FFFFFF'
+    } ,
+//    Cls: ['userTabPanelBorderCls'] ,
+    cls : 'userTabPanelSideColorCls userTabPanelBorderCls',
+    margin : '2% 2% 2% 2%',
     items: [
         {
-//		{
-//			xtype: 'toolbar',
-//	        baseCls : 'mainToolbarcls',
-//			flex : 2,
-//	        title : 'Welcome User',
-//			layout : {
-//				type : 'hbox',
-////				pack : 'center',
-//				align : 'stretch'
-//			},
-//	        items : [
-//		        {
-//		        	xtype: 'tbspacer',
-//		        	flex : 5
-//		        },{
-//		        	xtype : 'container',
-//		        	flex : 4,
-//		        	html : [
-//	        	        '<span style="font-size:20px;">User List</span>'
-//		        	]
-//		        },{
-//		        	xtype : 'button',
-//		        	text : 'log out',
-//		        	align : 'right',
-//		        	flex : 1,
-//		        	width : 70,
-//		        	cls : 'createBtnCls'
-//		        }
-//             ]
-//		},
             title: 'Users List',
             items: [
                 {
-
                     xtype: 'gridpanel',
+                    minWidth : 500,
+                    minHeight : 453,
                     flex: 1,
                     frame: true,
                     loadMask: true,
@@ -112,7 +90,7 @@ Ext.define('SenchaLogin.view.user.User', {
                                 icon: 'resources/images/edit.png',
                                 tooltip: 'Edit user profile',
                                 handler: function(grid, rowIndex, colIndex) {
-                                    createWindow('EditableUserProfile', 'Edit user profile');
+                                    createWindow('editableUserProfile', 'Edit user profile');
                                     var rec = grid.getStore().getAt(rowIndex);
                                     localStorage.setItem('userProfileID', rowIndex)
                                     localStorage.setItem('userProfileDataID', rec.get('id'))
@@ -123,10 +101,6 @@ Ext.define('SenchaLogin.view.user.User', {
                                     Ext.getCmp('editconfirmPasswordTFId').setValue(rec.get('password'));
 //                                    Ext.getCmp('editfirstNameTFId').setValue(rec.get('firstName'));
 //                                    Ext.getCmp('editfirstNameTFId').setValue(rec.get('firstName'));
-
-
-//                                    console.log(grid.getColumns())
-//                                    alert("Terminate " + rec.get('firstname'));
                                 }
                             }]
                         }
@@ -170,26 +144,20 @@ Ext.define('SenchaLogin.view.user.User', {
                         }
                     },
                     action: 'userGridPanelAction',
-//                    listeners : {
-//                        afterRender : function(){
-//        //						var localstorgeObj = Ext.decode(localStorage.getItem('UserData'));
-//        //						Ext.getStore('UserStore').loadData(localstorgeObj)
-//                        }
-//                    },
-
-
                     tbar: Ext.create('Ext.Toolbar', {
                         items: [
                             {
                                 iconCls: 'icon-add',
                                 text: 'Add',
                                 cls : 'userGridTbarBtnCls',
+                                tooltip: "Add user",
                                 action: 'addUserBtnAction'
                             }, {
                                 iconCls: 'icon-delete',
                                 text: 'Delete',
                                 cls : 'userGridTbarBtnCls',
-                                //                                disabled: true,
+                                action : 'deleteUserGridBtnAction',
+                                tooltip: "Delete User",
                                 itemId: 'delete'
                             }
                         ]
@@ -206,7 +174,7 @@ Ext.define('SenchaLogin.view.user.User', {
             title: 'Add Users',
             items: [
                 {
-                    xtype: 'UserProfile'
+                    xtype: 'userProfile'
                 }
             ]
         }

@@ -1,6 +1,6 @@
 Ext.Loader.addClassPathMappings({
   "Ext": "ext/src",
-  "SenchaLogin": "app",
+  "UserManagement": "app",
   "Ext.ux.GroupTreeChunker": "ext/src/ux/GroupTabPanel.js"
 });Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.BoxReorderer": [],
@@ -11,7 +11,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.ux.grid.filter.ListFilter": [],
   "Ext.ux.ajax.XmlSimlet": [],
   "Ext.ux.event.Driver": [],
-  "SenchaLogin.controller.Main": [],
+  "UserManagement.controller.Main": [],
   "Ext.ux.DataView.DragSelector": [],
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [],
@@ -42,7 +42,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
   "Ext.ux.ajax.SimManager": [],
-  "SenchaLogin.view.Viewport": [],
+  "UserManagement.view.Viewport": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
@@ -51,7 +51,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.ux.DataView.Draggable": [],
   "Ext.ux.TabCloseMenu": [],
   "Ext.ux.form.SearchField": [],
-  "SenchaLogin.view.Main": [],
+  "UserManagement.view.Main": [],
   "Ext.ux.LiveSearchGridPanel": [],
   "Ext.ux.grid.filter.DateFilter": [],
   "Ext.ux.TreePicker": [],
@@ -77,7 +77,7 @@ Ext.Loader.addClassPathMappings({
     "simlet.xml"
   ],
   "Ext.ux.event.Driver": [],
-  "SenchaLogin.controller.Main": [],
+  "UserManagement.controller.Main": [],
   "Ext.ux.DataView.DragSelector": [],
   "Ext.ux.grid.menu.ListMenu": [],
   "Ext.ux.GMapPanel": [
@@ -129,7 +129,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
   "Ext.ux.ajax.SimManager": [],
-  "SenchaLogin.view.Viewport": [],
+  "UserManagement.view.Viewport": [],
   "Ext.ux.grid.filter.BooleanFilter": [
     "gridfilter.boolean"
   ],
@@ -148,7 +148,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.ux.form.SearchField": [
     "widget.searchfield"
   ],
-  "SenchaLogin.view.Main": [],
+  "UserManagement.view.Main": [],
   "Ext.ux.LiveSearchGridPanel": [],
   "Ext.ux.grid.filter.DateFilter": [
     "gridfilter.date"

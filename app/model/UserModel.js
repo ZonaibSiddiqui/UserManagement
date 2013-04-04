@@ -1,4 +1,4 @@
-Ext.define('SenchaLogin.model.UserModel', {
+Ext.define('UserManagement.model.UserModel', {
     extend: 'Ext.data.Model',
     idProperty: 'User',
     fields: [

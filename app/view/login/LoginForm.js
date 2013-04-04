@@ -1,6 +1,6 @@
-Ext.define("SenchaLogin.view.login.LoginForm", {
+Ext.define("UserManagement.view.login.LoginForm", {
     extend: 'Ext.container.Container',
-    xtype: 'LoginForm',
+    xtype: 'loginForm',
     requires: ['Ext.toolbar.Spacer'],
     renderTo: Ext.getBody(),
     autoScroll: true,

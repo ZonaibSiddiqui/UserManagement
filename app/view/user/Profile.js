@@ -4,8 +4,8 @@
  */
 
 
-Ext.define('SenchaLogin.view.user.Profile',{extend : 'Ext.container.Container',
-    xtype : 'Profile',
+Ext.define('UserManagement.view.user.Profile',{extend : 'Ext.container.Container',
+    xtype : 'profile',
     renderTo : Ext.getBody(),
     id  : 'ProfileID',
     layout : {

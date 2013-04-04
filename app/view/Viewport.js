@@ -1,4 +1,4 @@
-Ext.define('SenchaLogin.view.Viewport', {
+Ext.define('UserManagement.view.Viewport', {
     renderTo: Ext.getBody(),
     extend: 'Ext.container.Viewport',
     alias : 'widget.Viewport',
@@ -8,10 +8,8 @@ Ext.define('SenchaLogin.view.Viewport', {
         'Ext.form.FieldSet',
         'Ext.form.field.Text',
         // views are added here
-        'SenchaLogin.view.login.ForgotPassword',
-        'SenchaLogin.view.main.Main'
-        //'SenchaLogin.view.UserList',
-        
+        'UserManagement.view.login.ForgotPassword',
+        'UserManagement.view.main.Main'
     ],
 
     layout: {
@@ -21,10 +19,6 @@ Ext.define('SenchaLogin.view.Viewport', {
 	},
 
     items: [
-        {
-			xtype : 'Main'
-		}
-		
-
+        {xtype : 'main'}
     ]
 });

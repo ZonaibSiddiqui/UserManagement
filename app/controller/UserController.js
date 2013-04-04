@@ -8,7 +8,7 @@
  * User  controller, used to fire events in the user module of the app.
  */
 
-Ext.define('SenchaLogin.controller.UserController', {
+Ext.define('UserManagement.controller.userController', {
     extend: 'Ext.app.Controller',
     config : {
         init : function(){
@@ -30,6 +30,12 @@ Ext.define('SenchaLogin.controller.UserController', {
 //                },
                 '[action = addUserActionBtn]' : {
                     click : this.addUserActionBtnFn
+                },
+                '[action = deleteUserGridBtnAction]' : {
+                    click : this.deleteUserGridBtnFn
+                },
+                '[action = userNameBtnAction]' : {
+                    click : this.userNameBtnActionFn
                 }
             });
         }
@@ -38,38 +44,41 @@ Ext.define('SenchaLogin.controller.UserController', {
 
 //    open window for user profile
     addUserActionBtnFn : function(){
-//        createWindow('Profile', 'Edit / Delete User Profile')
+//        createWindow('profile', 'Edit / Delete User Profile')
     },
 
 //       call on grid double call
     userGridItemdblclick : function(userGrids, record, item, index, e, eOpts ){
-        var userData = record.data;
-        createWindow('Profile', 'User Profile');
+        var userData = record.data;                          ;
+        createWindow('profile', 'User Profile');
         Ext.getCmp('profileUserNameLabelID').setText(userData.userName+' '+userData.lastName);
         Ext.getCmp('profileEmailLabelID').setText(userData.email);
         Ext.getCmp('profileCCLabelID').setText(userData.city + ', '+userData.country );
-        Ext.getCmp('profileUserImageID').setSrc(userData.imgSrc)
+        Ext.getCmp('profileUserImageID').setSrc(userData.imgSrc);
+    },
+
+    userNameBtnActionFn : function(){
+        createWindow('profile', 'User Profile');
+        Ext.getCmp('profileUserNameLabelID').setText('Zonaib Siddiqui');
+        Ext.getCmp('profileEmailLabelID').setText('zonaib.siddiqui@zintechnologies.com');
+        Ext.getCmp('profileCCLabelID').setText('Lahore, Pakistan');
+        Ext.getCmp('profileUserImageID').setSrc('resources/images/zonaib.png');
     },
 
 //    Call on grid single call
     userGridItemclick : function(grids, record, item, index, e, eOpts ){
-
+        localStorage.setItem('userProfileID', index);
 
     },
 
     // user profile button to save the inserted data
     userProfileSaveFn : function(btn, rec){
-//        console.log(rec)
-//        console.log(btn)
-//        return;
         var userProfileID   = localStorage.getItem('userProfileDataID');
-//        userProfileID += parseInt(1);
-//        alert(userProfileID)
         var firstName 		= Ext.getCmp('editfirstNameTFId').getValue();
         var lastName 		= Ext.getCmp('editlastNameTFId').getValue();
         var userName  		= Ext.getCmp('edituserNameTFId').getValue();
         var password 		= Ext.getCmp('editpasswordTFId').getValue();
-        var confirmPassword = Ext.getCmp('editconfirmPasswordTFId').getValue()
+        var confirmPassword = Ext.getCmp('editconfirmPasswordTFId').getValue();
         if(firstName == '' || firstName == undefined){
             Ext.Msg.alert('Caution', 'Please enter proper first name');
             return;
@@ -104,20 +113,42 @@ Ext.define('SenchaLogin.controller.UserController', {
                 Ext.Msg.alert('Congrats', 'Your profile is successfully editted');
                 Ext.getCmp('UserWindowID').close();
             }
-        })
-//        userStore.reLoad();
-
+        });
+//        userStore.clearFilter();
+//        userStore.load(function(rec, operation, success) {
+//            console.log(rec[userProfileID].data.id)
+//            if(rec[userProfileID].data.id == userProfileID){
+//                rec[userProfileID].data.firstName = firstName;
+//                rec[userProfileID].data.lastName = lastName;
+//                rec[userProfileID].data.userName = userName;
+//                rec[userProfileID].data.password = password;
+//                Ext.Msg.alert('Congrats', 'Your profile is successfully editted');
+//                Ext.getCmp('UserWindowID').close();
+//            }
+//        });
+//        userStore.proxy.extraParams = { firstName: firstName };userStore.load();
+//        userStore.load();
+//            userStore.sync({
+//
+//            success: function( response ) {
+//                userStore.load();
+//            }
+//        });
     },
 
     //UserProfileDeleteFn() used to delete user profile data
     userProfileDeleteFn : function(){
-        var userProfileID   = localStorage.getItem('userProfileID')
+        var userProfileID   = localStorage.getItem('userProfileID');
         var userStore  = Ext.getStore('UserStore');
         userStore.removeAt(parseInt(userProfileID));
         Ext.getCmp('UserWindowID').close();
-
+    },
+        // grid delete btn
+    deleteUserGridBtnFn : function(){
+        var userProfileID   = localStorage.getItem('userProfileID');
+        var userStore  = Ext.getStore('UserStore');
+        userStore.removeAt(parseInt(userProfileID));
     }
-
     // add user in the grid by openning a window to insert user data
     ,addUserBtnFn : function(){
 //		alert('User is added successfully')
