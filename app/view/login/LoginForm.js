@@ -2,7 +2,6 @@ Ext.define("UserManagement.view.login.LoginForm", {
     extend: 'Ext.container.Container',
     xtype: 'loginForm',
     requires: ['Ext.toolbar.Spacer'],
-//    renderTo: Ext.getBody(),
     autoScroll: true,
     layout: 'auto',
     id: 'LoginFormID',
@@ -19,9 +18,7 @@ Ext.define("UserManagement.view.login.LoginForm", {
             autoScroll: true,
             width: 1300,
             items: [
-
                 {
-                    // use form !
                     xtype: 'fieldset',
                     cls: 'mainfieldsetcls mainToolbarfontcls fieldsetBaseCls',
                     height: 290,
@@ -34,7 +31,6 @@ Ext.define("UserManagement.view.login.LoginForm", {
                                 pack: 'center'
                             },
                             style: 'margin-top:5px;',
-                            // dnt use html tag
                             items: [
                                 {
                                     xtype: 'container',
@@ -49,14 +45,12 @@ Ext.define("UserManagement.view.login.LoginForm", {
                         {
 
                             xtype: 'textfield',
-                            // use dynamic heights and widths
                             width: 325,
                             fieldLabel: 'User name',
                             cls: 'mainTextFeildcls mytxtcls',
                             fieldStyle: 'height:35px;',
                             labelAlign: 'top',
                             allowBlank: false,
-
                             id: 'mainUserNameTextfieldID'
                         },
                         {
@@ -94,7 +88,6 @@ Ext.define("UserManagement.view.login.LoginForm", {
                                     labelCls: 'checkboxLabelCls'
                                 }
                             ]
-
                         },
                         {
                             xtype: 'container',

@@ -1,6 +1,10 @@
 Ext.define('UserManagement.controller.loginController', {
     extend: 'Ext.app.Controller',
     config : {
+        views :[
+            'login.ForgotPassword',
+            'login.LoginForm'
+        ],
 	    init : function(){
 			this.control({
 				'[action = btnClicked]' : {

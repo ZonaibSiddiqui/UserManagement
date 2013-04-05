@@ -1,18 +1,10 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-//editableUserProfile
-
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
 Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.container.Container',
 	xtype : 'editableUserProfile',
-	id : 'EditableUserProfileID',
-//    renderTo : Ext.getBody(),
 	layout : {
 	     type  : 'vbox',
 	     pack : 'center',
@@ -71,7 +63,6 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 					    }
-					     
 					]
 			     },{
 			    	 xtype : 'container',
@@ -92,7 +83,6 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 					    }
-					     
 					]
 			     },{
 			    	 xtype : 'container',
@@ -115,7 +105,6 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 					    }
-					     
 					]
 			     },{
 			    	 xtype : 'container',
@@ -138,7 +127,6 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 					         id : 'editconfirmPasswordTFId',
 					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
-
 					    }
  					]
 			     },{
@@ -167,13 +155,8 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 					    	 action : 'userProfileDeleteBtn',
 					    	 cls : 'editProfileBtnCls my-btns'
 			     	      }
-			     	      
-			     	      
 			     	 ]
-			     
-			    	 
 			     }
-			     
 			]
 		}
 	],
@@ -182,7 +165,6 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
             var userProfileID = localStorage.getItem('userProfileID')
             var userStore = Ext.getStore('UserStore');
             userStore.each(function (rec) {
-//				
                 if (rec.data.id == userProfileID) {
                     Ext.getCmp('editfirstNameTFId').setValue(rec.data.firstName)
                     Ext.getCmp('editlastNameTFId').setValue(rec.data.lastName)
@@ -190,10 +172,7 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
                     Ext.getCmp('editpasswordTFId').setValue(rec.data.password)
                     Ext.getCmp('editconfirmPasswordTFId').setValue(rec.data.password)
                 }
-
             })
         }
 	}
-		
-	
 })

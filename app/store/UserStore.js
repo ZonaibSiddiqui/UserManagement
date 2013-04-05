@@ -40,7 +40,6 @@ Ext.define('UserManagement.store.UserStore', {
 //		type: 'localstorage',
         id: 'userproxy',
         type: 'pagingmemory'
-
 //	    reader: {
 //	        type: 'array'
 //	    }

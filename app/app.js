@@ -14,11 +14,6 @@ Ext.application({
     ],
     requires : [
         // Remove Extra Requires from everywhere and put them into their appropriate class
-        'UserManagement.view.Viewport',
-        'UserManagement.view.user.User',
-        'UserManagement.view.user.Profile',
-        'UserManagement.view.user.EditableUserProfile',
-        'UserManagement.view.user.UserProfile',
         'Ext.grid.plugin.CellEditing',
         'Ext.grid.*',
         'Ext.data.*',

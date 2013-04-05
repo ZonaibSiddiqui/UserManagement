@@ -9,7 +9,6 @@
 
 Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
     xtype: 'main',
-//    renderTo : Ext.getBody(),
     id: 'MainID',
 //    main view layout vbox
     layout: {
