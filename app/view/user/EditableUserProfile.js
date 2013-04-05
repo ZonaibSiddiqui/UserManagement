@@ -11,84 +11,64 @@
 
 Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.container.Container',
 	xtype : 'editableUserProfile',
-	renderTo : Ext.getBody(),
 	id : 'EditableUserProfileID',
+//    renderTo : Ext.getBody(),
 	layout : {
 	     type  : 'vbox',
 	     pack : 'center',
 	     align : 'stretch'
 	},
+    cls  : 'editPanelBgCls',
 	items : [
 		{
-			xtype: 'toolbar',
-	        baseCls : 'mainToolbarcls',
-			flex : 2,
-	        title : 'Edit User Profile',
-			layout : {
-				type : 'hbox',
-				pack : 'center',
-				align : 'stretch'
-			},
-			width : 200,
-	        items : [
-		        {
-		        	xtype: 'tbspacer',
-		        	flex : 2
-		        },{
-		        	xtype : 'container',
-		        	flex : 5,
-                    margin : '0 0 0 25',
-		        	html : [
-	        	        '<span style="font-size:20px;color :#FFFFFF;">Edit User Profile</span>'
-		        	]
-		        }
-	        ]
-		},{
 			xtype : 'container',
 			layout : {
 			     type : 'vbox',
 			     align : 'center'
 			},
-			margin : '20 0 0 0',
+			margin : '10 0 0 0',
 			items : [
 			     {
 			    	 xtype : 'container',
 			    	 layout : {
-			    	 	type : 'hbox'
+			    	 	type : 'vbox'
 			    	 },
-			    	 margin : '15 0 0 250',
+			    	 margin : '0 0 0 250',
 						items : [
 					     {
+
 					    	 xtype : 'label',
 					    	 forId: 'editfirstNameId',
-					    	 margin : '5 50 0 0',
+					    	 margin : '5 50 5 0',
 					    	 text: 'First Name'
 					         
 					     },{
+
 				         	 xtype: 'textfield',
+//                             width : '100%',
 					         id : 'editfirstNameTFId',
-					         fieldStyle: 'height:25px;',
+					         fieldStyle: 'height:30px;width:250px;',
+                            cls : 'textFieldBgCls',
 					         hideLabel: true
 					    }
-					     
 					]
-			     
 			     },{
 			    	 xtype : 'container',
 			    	 layout : {
-			    	 	type : 'hbox'
+			    	 	type : 'vbox'
 			    	 },
-			    	 margin : '15 0 0 250',
+			    	 margin : '0 0 0 250',
 						items : [
 					     {
 					    	 xtype : 'label',
 					    	 forId: 'editlastNameId',
-					    	 margin : '5 50 0 0',
+					    	 margin : '5 50 5 0',
 					    	 text: 'Last Name'
 					     },{
 					         xtype: 'textfield',
 					         id : 'editlastNameTFId',
-					         fieldStyle: 'height:25px;',
+                             cls : 'textFieldBgCls',
+					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 					    }
 					     
@@ -96,19 +76,20 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 			     },{
 			    	 xtype : 'container',
 			    	 layout : {
-			    	 	type : 'hbox'
+			    	 	type : 'vbox'
 			    	 },
-			    	 margin : '15 0 0 250',
+			    	 margin : '0 0 0 250',
 						items : [
 					     {
 					    	 xtype : 'label',
 					    	 forId: 'edituserNameId',
-					    	 margin : '5 50 0 0',
+					    	 margin : '5 50 5 0',
 					    	 text: 'User Name'
 					     },{
 					         xtype: 'textfield',
 					         id : 'edituserNameTFId',
-					         fieldStyle: 'height:25px;',
+                             cls : 'textFieldBgCls',
+					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 					    }
 					     
@@ -116,21 +97,22 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 			     },{
 			    	 xtype : 'container',
 			    	 layout : {
-			    	 	type : 'hbox'
+			    	 	type : 'vbox'
 			    	 },
-			    	 margin : '15 0 0 0',
+			    	 margin : '0 0 0 0',
 						items : [
 					     {
 					    	 xtype : 'label',
 					    	 forId: 'editpasswordId',
-					    	 margin : '5 58 0 0',
+					    	 margin : '5 58 5 0',
 					    	 text: 'Password'
 					    	 
 					     },{
 					         xtype: 'textfield',
 					         inputType : 'password',
+                             cls : 'textFieldBgCls',
 					         id : 'editpasswordTFId',
-					         fieldStyle: 'height:25px;',
+					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 					    }
 					     
@@ -138,22 +120,23 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 			     },{
 			    	 xtype : 'container',
 			    	 layout : {
-			    	 	type : 'hbox'
+			    	 	type : 'vbox'
 			    	 },
-			    	 margin : '15 0 0 35px',
+			    	 margin : '0 0 0 35px',
 						items : [
 					     {
 					    	 xtype : 'label',
 					    	 forId: 'editconfirmPasswordId',
-					    	 margin : '5 15 0 0',
+					    	 margin : '5 15 5 0',
 					    	 text: 'Confirm Password'
 					    	 
 					     },{
 					         xtype: 'textfield',
 					         inputType : 'password',
 //				        	 readOnly : true,
+                             cls : 'textFieldBgCls',
 					         id : 'editconfirmPasswordTFId',
-					         fieldStyle: 'height:25px;',
+					         fieldStyle: 'height:30px;width:250px;',
 					         hideLabel: true
 
 					    }
@@ -163,24 +146,26 @@ Ext.define('UserManagement.view.user.EditableUserProfile',{extend : 'Ext.contain
 			    	 layout : {
 			    	 	type : 'hbox'
 			     	 },
-			     	margin : '15 0 20 0',
+			     	margin : '0 0 20 0',
 			     	 items : [
 			     	      {
 			     	    	 xtype : 'button',
-					    	 margin : '15 0 0 0',
+					    	 margin : '10 0 0 0',
 					    	 flex : 2,
 					    	 text : 'Save',
-					         width : buttonWidth,
+					         width : 100,
+                             height: 30,
 					    	 action : 'userProfileSaveBtn',
-					    	 cls : 'loginbtncls my-btn'
+					    	 cls : 'editProfileBtnCls my-btns'
 			     	      },{
 			     	    	 xtype : 'button',
-					    	 margin : '15 0 0 10',
+					    	 margin : '10 0 0 10',
 					    	 flex : 2,
 					    	 text : 'Delete',
-					         width : buttonWidth,
+					         width : 100,
+                             height: 30,
 					    	 action : 'userProfileDeleteBtn',
-					    	 cls : 'loginbtncls my-btn'
+					    	 cls : 'editProfileBtnCls my-btns'
 			     	      }
 			     	      
 			     	      

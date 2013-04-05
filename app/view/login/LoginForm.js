@@ -2,7 +2,7 @@ Ext.define("UserManagement.view.login.LoginForm", {
     extend: 'Ext.container.Container',
     xtype: 'loginForm',
     requires: ['Ext.toolbar.Spacer'],
-    renderTo: Ext.getBody(),
+//    renderTo: Ext.getBody(),
     autoScroll: true,
     layout: 'auto',
     id: 'LoginFormID',
@@ -93,7 +93,6 @@ Ext.define("UserManagement.view.login.LoginForm", {
                                     boxLabel: 'Stay signed in',
                                     labelCls: 'checkboxLabelCls'
                                 }
-
                             ]
 
                         },

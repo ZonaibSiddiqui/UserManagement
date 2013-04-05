@@ -222,8 +222,12 @@ Ext.Loader.addClassPathMappings({
 
 	createWindow = function(itemXtype , windowTitleMsg){
 		Ext.create('Ext.window.Window', {
+            layout : {
+                type : 'fit'
+            },
 		    title: windowTitleMsg,
 		    id : 'UserWindowID',
+            renderTo : Ext.getBody(),
 		    layout: 'card',
 //            collapseFirst : true,
             modal : true,
@@ -234,5 +238,7 @@ Ext.Loader.addClassPathMappings({
 		    ]
 		}).show();
 	}
-	
-	
+
+function capitaliseFirstLetter(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

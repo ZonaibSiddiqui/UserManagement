@@ -1,7 +1,7 @@
 Ext.define('UserManagement.view.user.User', {
     extend: 'Ext.tab.Panel',
-    renderTo: Ext.getBody(),
     xtype: 'userList',
+//    renderTo : Ext.getBody(),
     id: 'UserListID',
     requires: [
         'Ext.toolbar.Paging',
@@ -24,13 +24,13 @@ Ext.define('UserManagement.view.user.User', {
         pack: 'center',
         align: 'stretch'
     },
-    enableTabScroll: true,
-//    autoScroll : true,
-    bodyStyle: {
-        background: '#FFFFFF'
-    } ,
-//    Cls: ['userTabPanelBorderCls'] ,
-    cls : 'userTabPanelSideColorCls userTabPanelBorderCls',
+    activeTab: 0,
+    width:'100%',
+    flex:1,
+    margin:10,
+    plain: true,
+    itemCls: 'middle-panel',
+    cls : 'userTabPanelSideColorCls userTabPanelBorderCls middle-panel',
     margin : '2% 2% 2% 2%',
     items: [
         {
@@ -39,14 +39,13 @@ Ext.define('UserManagement.view.user.User', {
                 {
                     xtype: 'gridpanel',
                     minWidth : 500,
-                    minHeight : 453,
+                    minHeight : 447,
                     flex: 1,
                     frame: true,
                     loadMask: true,
                     columns : 5,
                     id : 'userListGridID',
                     name: 'gridpanelName',
-//                    title: 'User info Grid',
                     store: Ext.data.StoreManager.lookup('UserStore'),
                     columns: [
                         {
@@ -90,8 +89,8 @@ Ext.define('UserManagement.view.user.User', {
                                 icon: 'resources/images/edit.png',
                                 tooltip: 'Edit user profile',
                                 handler: function(grid, rowIndex, colIndex) {
-                                    createWindow('editableUserProfile', 'Edit user profile');
                                     var rec = grid.getStore().getAt(rowIndex);
+                                    createWindow('editableUserProfile', capitaliseFirstLetter(rec.get('firstName')) +' '+ capitaliseFirstLetter(rec.get('lastName'))+' <br>'+rec.get('email')+' ');
                                     localStorage.setItem('userProfileID', rowIndex)
                                     localStorage.setItem('userProfileDataID', rec.get('id'))
                                     Ext.getCmp('editfirstNameTFId').setValue(rec.get('firstName'));
@@ -99,31 +98,9 @@ Ext.define('UserManagement.view.user.User', {
                                     Ext.getCmp('edituserNameTFId').setValue(rec.get('userName'));
                                     Ext.getCmp('editpasswordTFId').setValue(rec.get('password'));
                                     Ext.getCmp('editconfirmPasswordTFId').setValue(rec.get('password'));
-//                                    Ext.getCmp('editfirstNameTFId').setValue(rec.get('firstName'));
-//                                    Ext.getCmp('editfirstNameTFId').setValue(rec.get('firstName'));
                                 }
                             }]
                         }
-//                        ,
-//                        {
-//                            header: 'Edit Profile',
-//                            renderer: function (v, m, r) {
-//                                var id = Ext.id();
-//                                Ext.defer(function () {
-//                                    Ext.widget('button', {
-//                                        renderTo: id,
-////                                        src: 'resources/images/edit2.png',
-//                                        autoEl: 'div',
-//	                                    text: 'Edit / Delete',
-//                                        iconCls : 'edit-button',
-//                                        width: '100%',
-//                                        height: 20,
-//                                        action: 'addUserActionBtn'
-//                                    });
-//                                }, 50);
-//                                return Ext.String.format('<div id="{0}"></div>', id);
-//                            }
-//                        }
                     ],
                     stripeRows: true,
                     frame: true,
@@ -145,8 +122,9 @@ Ext.define('UserManagement.view.user.User', {
                     },
                     action: 'userGridPanelAction',
                     tbar: Ext.create('Ext.Toolbar', {
+                        id : 'userListGridsID',
                         items: [
-                            {
+                           {
                                 iconCls: 'icon-add',
                                 text: 'Add',
                                 cls : 'userGridTbarBtnCls',
@@ -156,6 +134,8 @@ Ext.define('UserManagement.view.user.User', {
                                 iconCls: 'icon-delete',
                                 text: 'Delete',
                                 cls : 'userGridTbarBtnCls',
+                                scope: this,
+//                                handler: this.onDeleteClick,
                                 action : 'deleteUserGridBtnAction',
                                 tooltip: "Delete User",
                                 itemId: 'delete'
@@ -163,6 +143,7 @@ Ext.define('UserManagement.view.user.User', {
                         ]
                     }),
                     bbar: Ext.create('Ext.PagingToolbar', {
+                        id  : 'addd',
                         pageSize: itemsPerPage,
                         store: Ext.data.StoreManager.lookup('UserStore'),
                         displayInfo: true
@@ -172,13 +153,21 @@ Ext.define('UserManagement.view.user.User', {
         } ,
         {
             title: 'Add Users',
+
             items: [
                 {
                     xtype: 'userProfile'
+
                 }
             ]
         }
-    ]
+    ]      ,
+    onDeleteClick: function(){
+    var selection = this.getView().getSelectionModel().getSelection()[0];
+    if (selection) {
+        this.store.remove(selection);
+    }
+}
 });
 
 
@@ -188,5 +177,6 @@ change = function(val) {
     } else if (val < 0) {
         return '<span style="color:red;">' + val + '</span>';
     }
-    return val;
+    return val
 }
+

@@ -10,12 +10,10 @@ Ext.application({
         'mainController'
     ],
     views :[
-        'Viewport',
-        'login.ForgotPassword',
-        'login.UserList',
-        'login.LoginForm'
+        'Viewport' // Remove
     ],
     requires : [
+        // Remove Extra Requires from everywhere and put them into their appropriate class
         'UserManagement.view.Viewport',
         'UserManagement.view.user.User',
         'UserManagement.view.user.Profile',
@@ -34,6 +32,7 @@ Ext.application({
         'Ext.grid.plugin.CellEditing'
     ],
 
+    // Put them into Controller
 	models : [
          'UserModel'
 	],

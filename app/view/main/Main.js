@@ -9,7 +9,7 @@
 
 Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
     xtype: 'main',
-    renderTo: Ext.getBody(),
+//    renderTo : Ext.getBody(),
     id: 'MainID',
 //    main view layout vbox
     layout: {
@@ -17,6 +17,7 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
         pack: 'top',
         align: 'stretch'
     },
+
     items: [
         {
 //            toolbar layout hbox to add 3 items and 1st is spacer with flex 1
@@ -31,13 +32,14 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
             },
             items: [
                 {
-                    xtype : 'label',
-                    flex : 14.5
+                    xtype : 'label', //What a chaipee?
+                    flex : 14
                 },{
                     xtype : 'button',
-                    overCls  : 'logoutBtn',
+                    overCls  : 'logoutBtn',   //Copy Paste Error, Wrong Name
                     pressedCls : 'logoutBtn',
                     text: 'Zonaib Siddiqui',
+                    margin : '0 0 0 -15%',
                     cls: 'whiteLabelTextCls whiteLabelTextFontCls',
                     action : 'userNameBtnAction'
 
@@ -45,7 +47,7 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
                 {
                     xtype : 'button',
                     text  : 'Logout',
-//                    margin : '0 0 0 2%',
+                    margin : '0 0 0 18%',
 //                    flex : 1,
                     cls : 'logoutbtnCls',
                     overCls  : 'logoutBtn',
@@ -68,7 +70,7 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
             },
             items: [
                 {
-                    xtype: 'tbspacer',
+                    xtype: 'tbspacer', //Try to use vbox,hbox,panel
                     width: 148
                 },
                 {
@@ -82,7 +84,7 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
         },
         {
 //            grid view and left and right and left css classes
-            xtype: 'container',
+            xtype: 'container', //Use panel
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -106,19 +108,32 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
                         {
                             xtype: 'label',
                             width: '100%',
-//                            height: 800,
                             flex : 40,
-                            cls: 'senchaMainWhiteClr'
+                            cls: 'senchaMainWhiteClr '
+
                         }
                     ]
+                },{
+                    layout: 'vbox',
+                    width: '.1%', //Beyond the technology
+                    margin : '0 0 0 -0', //Ya Allah Khair
+                    border: true,
+                    bodyCls: 'side-panel-bottom-box-left'
                 },
                 {
                     xtype: 'userList',
                     id : 'mainUserListId',
-                    width : '20%',
+                    width : '20%',               //
+                    margin : '0 0 12 0',
                     border: 1,
                     style: 'border-radius: 5px;',
                     flex: 1
+                },{
+                    layout: 'vbox',
+                    width: '.1%',
+                    margin : '0 0 0 -0',
+                    border: true,
+                    bodyCls: 'side-panel-bottom-box-left'
                 },
                 {
 //                    left container
@@ -133,7 +148,6 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
                             width: 155,
                             height: 50,
                             cls: 'mainSenchaLogoImgCls'
-
                         },
                         {
                             xtype: 'label',
@@ -149,9 +163,6 @@ Ext.define('UserManagement.view.main.Main', {extend: 'Ext.container.Container',
             xtype: 'label',
             flex : 65,
             height : 2
-//            text : 'i m here'
-//            height :  30
-//            flex : 4
         },
         {
 //                    footer on the bottom

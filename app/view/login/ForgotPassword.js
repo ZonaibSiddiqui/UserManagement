@@ -1,6 +1,7 @@
 Ext.define('UserManagement.view.login.ForgotPassword', {
 	extend : 'Ext.Panel',
 	xtype: 'forgotPassword',
+//    renderTo : Ext.getBody(),
 	config : {
 		id : 'ForgotPasswordID',
 		scrollable : true,

@@ -1,7 +1,7 @@
 Ext.define('UserManagement.view.Viewport', {
     renderTo: Ext.getBody(),
     extend: 'Ext.container.Viewport',
-    alias : 'widget.Viewport',
+    alias : 'widget.Viewport',  // Remove Unnecessary code
     requires:[
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
@@ -17,7 +17,9 @@ Ext.define('UserManagement.view.Viewport', {
 		align:'stretch',
 		pack:'top'
 	},
-
+    minHeight : 10,
+    minWidth : 800,
+    autoScroll : true,
     items: [
         {xtype : 'main'}
     ]

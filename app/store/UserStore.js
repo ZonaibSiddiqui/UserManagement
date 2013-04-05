@@ -45,13 +45,4 @@ Ext.define('UserManagement.store.UserStore', {
 //	        type: 'array'
 //	    }
     }
-//    proxy: {
-//	        type: 'ajax',
-//	        url: 'resources/examples.json',  // url that will load data with respect to start and limit params
-//	        reader: {
-//	            type: 'json',
-//	            root: 'items',
-//	            totalProperty: 'total'
-//	        }
-//    }
 });
