@@ -8,19 +8,21 @@
 
 Ext.define('UserManagement.controller.mainController', {
     extend: 'Ext.app.Controller',
-
+    views :[
+        'main.Main'
+    ],
+    localized : true,
     config : {
         init : function(){
             this.control({
-                '[action = loginActionBtn]' : {
-                    click : this.loginActionBtnFn
+                '[action = logoutBtnAction]' : {
+                    click : this.onLogoutBtnClick
                 }
             })
         }
-
     },
 
-    loginActionBtnFn : function(){
+    onLogoutBtnClick : function(){
         window.location = 'http://localhost:8080/UserManagement/login.html'
     }
 })

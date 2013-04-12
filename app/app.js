@@ -1,39 +1,52 @@
-
 Ext.Loader.setConfig({enabled: true});
+window.loadLocale();
 Ext.Loader.setPath('Ext.ux', 'ext/src/ux');
+
+
 
 Ext.application({
 
     controllers : [
-        'loginController',
         'userController',
         'mainController'
     ],
-    views :[
-        'Viewport' // Remove
-    ],
+
     requires : [
-        // Remove Extra Requires from everywhere and put them into their appropriate class
-        'Ext.grid.plugin.CellEditing',
-        'Ext.grid.*',
-        'Ext.data.*',
         "Ext.form.*",
         'Ext.util.*',
         'Ext.toolbar.Paging',
-        'Ext.ux.PreviewPlugin',
         'Ext.ModelManager',
-        'Ext.tip.QuickTipManager',
+        'Ext.grid.*',
+        'Ext.ux.PreviewPlugin',
         'Ext.ux.data.PagingMemoryProxy',
         'Ext.grid.plugin.CellEditing'
     ],
-
-    // Put them into Controller
-	models : [
-         'UserModel'
-	],
-	stores : [
-         'UserStore'
-	],
+    models : [
+        'UserModel'
+    ],
+    stores : [
+        'UserStore',
+        'CountryStore'
+    ],
     name : 'UserManagement',
-    autoCreateViewport : true
+    autoCreateViewport : true,
+    launch: function(){
+        UserManagement = this;
+        localStorageProxy()
+
+//         console.log(Ext.getStore('UserStore').data.items)
+    }
 });
+
+
+function loadLocale() {
+    var params = Ext.urlDecode(window.location.search.substring(1));
+    if(params.lang){
+        Ext.loader.setLocale({
+            enabled : true,
+            language : params.lang,
+            localizedByDefault : false,
+            types : ['controller', 'view']
+        });
+    }
+}

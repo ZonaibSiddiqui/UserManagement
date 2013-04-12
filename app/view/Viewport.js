@@ -1,14 +1,6 @@
 Ext.define('UserManagement.view.Viewport', {
     renderTo: Ext.getBody(),
     extend: 'Ext.container.Viewport',
-    requires:[
-        'Ext.tab.Panel',
-        'Ext.layout.container.Border',
-        'Ext.form.FieldSet',
-        'Ext.form.field.Text',
-        // views are added here
-        'UserManagement.view.main.Main'
-    ],
     layout: {
 		type:'vbox',
 		align:'stretch',

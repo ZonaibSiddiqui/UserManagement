@@ -10,30 +10,39 @@
 
 Ext.define('UserManagement.controller.userController', {
     extend: 'Ext.app.Controller',
+    views : [
+        'user.UserList',
+        'user.Profile',
+        //1: Profile
+        //2: EditProfile (Button: Save, Cancel)
+        //  2.1: _UserForm.js
+        //3: AddProfile (Button: Save, Cancel)
+        //  3.1: _UserForm.js
+    'user.EditableUserProfile', // Merge these two components (Add+Edit)
+        'user.UserProfile'
+    ],
+
     config: {
-        views : [
-            'user.User',
-            'user.Profile',
-            'user.EditableUserProfile',
-            'user.UserProfile'
-        ],
         init: function () {
             this.control({
-                "[action = userProfileSaveBtn]": {
-                    click: this.userProfileSaveFn
+                "[action = editUserProfileSaveBtnAction]": {
+                    click: this.onEditUserProfileSaveBtnClick
                 },
-                '[action = userProfileDeleteBtn]': {
-                    click: this.userProfileDeleteFn
+                '[action = editUserProfileDeleteBtnAction]': {
+                    click: this.onEditUserProfileDeleteBtnClick
                 },
                 '[action = addUserBtnAction]': {
                     click: this.addUserBtnFn
                 },
-//                '[action = userGridPanelAction]' : {
-//                    itemdblclick : this.userGridItemdblclick
-//                },
-                '[action = userGridPanelAction]': {
-                    itemclick: this.userGridItemclick
+                '[action = userGridPanelAction]' : {
+                    itemdblclick : this.onUserGridItemdblclick
                 },
+//                '[action = userGridPanelAction]': {
+//                    select: this.userGridItemclick //, this, {buffer: 300}
+//                    itemclick : Ext.Function.createBuffered(this.userGridItemclick, 1000, this)
+//                    itemclick : Ext.Function.createDelayed  (this.userGridItemclick, 1000, this)
+
+//                },
                 '[action = addUserActionBtn]': {
                     click: this.addUserActionBtnFn
                 },
@@ -41,11 +50,49 @@ Ext.define('UserManagement.controller.userController', {
                     click: this.deleteUserGridBtnFn
                 },
                 '[action = userNameBtnAction]': {
-                    click: this.userNameBtnActionFn
+                    click: this.onUserNameBtnClick
+                },
+                '[action = userProfileCancelBtnAction]' : {
+                    click  : this.onUserProfileCancelBtnClick
+                },
+                '[action = userProfileSaveBtnAction]' : {
+                    click  : this.onUserProfileSaveBtnClick
                 }
             });
         }
+    },
 
+    onUserProfileSaveBtnClick : function(){
+        var firstName = Ext.ComponentQuery.query('textfield[itemId=txtfirstName]')[0].getValue();
+        var lastName = Ext.ComponentQuery.query('textfield[itemId=txtlastName]')[0].getValue();
+        var userName = Ext.ComponentQuery.query('textfield[itemId=txtuserName]')[0].getValue();
+        var password = Ext.ComponentQuery.query('textfield[itemId=txtpassword]')[0].getValue();
+        var confirmPassword = Ext.ComponentQuery.query('textfield[itemId=txtconfirmPassword]')[0].getValue();
+
+        // validate the add user form
+        var formValidation = Ext.getCmp('userProfileForm').getForm().isValid()
+        if(formValidation == 0){
+            Ext.Msg.alert('Caution', 'Please Fill all the fields');
+            return;
+        }
+
+        // add new user to the store
+        var userStore = Ext.getStore('UserStore');
+        userStore.add({
+            firstName: firstName,
+            lastName: lastName,
+            userName: userName,
+            password: password
+        });
+
+        // Activate first tab of tab panel
+        Ext.getCmp('userListID').getLayout().setActiveItem(0)
+    },
+
+    // user profile cancel button which is used to reset text fields
+    onUserProfileCancelBtnClick : function(){
+        Ext.getCmp('userProfileForm').getForm().reset();
+        Ext.getCmp('userListID').getLayout().setActiveItem(0)
     },
 
 //    open window for user profile
@@ -54,337 +101,95 @@ Ext.define('UserManagement.controller.userController', {
     },
 
 //       call on grid double call
-    userGridItemdblclick: function (userGrids, record, item, index, e, eOpts) {
-        var u
-        p('profileUserImageID').setSrc(userData.imgSrc);
+    onUserGridItemdblclick: function (userGrids, record, item, index, e, eOpts) {
+        localStorage.setItem('userProfileID', index);
+        var userData = record.data;
+        createWindow('profile', capitaliseFirstLetter(userData.userName) + ' ' + capitaliseFirstLetter(userData.lastName) + "'s Profile", userData);
     },
 
-    userNameBtnActionFn: function () {
-        createWindow('profile', 'User Profile');
-        Ext.getCmp('profileUserNameLabelID').setText('Zonaib Siddiqui');
-        Ext.getCmp('profileEmailLabelID').setText('zonaib.siddiqui@zintechnologies.com');
-        Ext.getCmp('profileCCLabelID').setText('Lahore, Pakistan');
-        Ext.getCmp('profileUserImageID').setSrc('resources/images/zonaib.png');
+    // open window when click on user name on toolbar having user info
+    onUserNameBtnClick: function () {
+        createWindow('profile', "Zonaib Siddiqui's Profile");
     },
 
 //    Call on grid single call
     userGridItemclick: function (grids, record, item, index, e, eOpts) {
-        localStorage.setItem('userProfileID', index);
-        var userData = record.data;
-        createWindow('profile', capitaliseFirstLetter(userData.userName) + ' ' + capitaliseFirstLetter(userData.lastName) + "'s Profile");
-        Ext.getCmp('profileUserNameLabelID').setText(capitaliseFirstLetter(userData.userName) + ' ' + capitaliseFirstLetter(userData.lastName));
-        Ext.getCmp('profileEmailLabelID').setText(userData.email);
-        Ext.getCmp('profileCCLabelID').setText(userData.city + ', ' + userData.country);
-        Ext.getCmp('profileUserImageID').setSrc(userData.imgSrc);
+//        alert('sss')
+//        localStorage.setItem('userProfileID', index);
+//        var userData = record.data;
+//        createWindow('profile', capitaliseFirstLetter(userData.userName) + ' ' + capitaliseFirstLetter(userData.lastName) + "'s Profile");
+//        Ext.getCmp('profileUserNameLabelID').setText(capitaliseFirstLetter(userData.userName) + ' ' + capitaliseFirstLetter(userData.lastName));
+//        Ext.getCmp('profileEmailLabelID').setText(userData.email);
+//        Ext.getCmp('profileCCLabelID').setText(userData.city + ', ' + userData.country);
+//        Ext.getCmp('profileUserImageID').setSrc(userData.imgSrc);
 
     },
 
     // user profile button to save the inserted data
-    userProfileSaveFn: function (btn, rec) {
+    onEditUserProfileSaveBtnClick : function (btn, rec) {
         var userProfileID = localStorage.getItem('userProfileDataID');
-        var firstName = Ext.getCmp('editfirstNameTFId').getValue();
-        var lastName = Ext.getCmp('editlastNameTFId').getValue();
-        var userName = Ext.getCmp('edituserNameTFId').getValue();
-        var password = Ext.getCmp('editpasswordTFId').getValue();
-        var confirmPassword = Ext.getCmp('editconfirmPasswordTFId').getValue();
-        if (firstName == '' || firstName == undefined) {
-            Ext.Msg.alert('Caution', 'Please enter proper first name');
+        var firstName = Ext.ComponentQuery.query('textfield[itemId=txtfirstName]')[0].getValue();
+        var lastName = Ext.ComponentQuery.query('textfield[itemId=txtlastName]')[0].getValue();
+        var userName = Ext.ComponentQuery.query('textfield[itemId=txtuserName]')[0].getValue();
+        var password = Ext.ComponentQuery.query('textfield[itemId=txtpassword]')[0].getValue();
+        var confirmPassword = Ext.ComponentQuery.query('textfield[itemId=txtconfirmPassword]')[0].getValue();
+
+        var formValidation = Ext.getCmp('userProfileForm').getForm().isValid()
+        if(formValidation == 0){
+            Ext.Msg.alert('Caution', 'Please Fill all the fields');
             return;
         }
-        if (lastName == '' || lastName == undefined) {
-            Ext.Msg.alert('Caution', 'Please enter proper last name');
-            return;
-        }
-        if (userName == '' || userName == undefined) {
-            Ext.Msg.alert('Caution', 'Please enter proper user name');
-            return;
-        }
-        if (password == '' || password == undefined) {
-            Ext.Msg.alert('Caution', 'Please enter password');
-            return;
-        }
-        if (confirmPassword == '' || confirmPassword == undefined) {
-            Ext.Msg.alert('Caution', 'Please enter confirm password');
-            return;
-        }
-        if (password != confirmPassword) {
-            Ext.Msg.alert('Caution', 'Password do not match, please try again');
-            return;
-        }
+
         var userStore = Ext.getStore('UserStore');
-        userStore.each(function (rec) {
-            if (rec.data.id == userProfileID) {
-                rec.data.firstName = firstName;
-                rec.data.lastName = lastName;
-                rec.data.userName = userName;
-                rec.data.password = password;
-                Ext.Msg.alert('Congrats', 'Your profile is successfully editted');
-                Ext.getCmp('UserWindowID').close();
-            }
-        });
-//        userStore.clearFilter();
-//        userStore.load(function(rec, operation, success) {
-//            console.log(rec[userProfileID].data.id)
-//            if(rec[userProfileID].data.id == userProfileID){
-//                rec[userProfileID].data.firstName = firstName;
-//                rec[userProfileID].data.lastName = lastName;
-//                rec[userProfileID].data.userName = userName;
-//                rec[userProfileID].data.password = password;
+        //Use filter on store, don't use loop
+        userStore.add({firstName : firstName, lastName : lastName, userName : userName, password : password})
+//        userStore.each(function (rec) {
+//            if (rec.data.id == userProfileID) {
+//                rec.data.firstName = firstName;
+//                rec.data.lastName = lastName;
+//                rec.data.userName = userName;
+//                rec.data.password = password;
 //                Ext.Msg.alert('Congrats', 'Your profile is successfully editted');
 //                Ext.getCmp('UserWindowID').close();
 //            }
 //        });
-//        userStore.proxy.extraParams = { firstName: firstName };userStore.load();
-//        userStore.load();
-//            userStore.sync({
-//
-//            success: function( response ) {
-//                userStore.load();
-//            }
-//        });
+
     },
 
     //UserProfileDeleteFn() used to delete user profile data
-    userProfileDeleteFn: function () {
-        var userProfileID   = localStorage.getItem('userProfileID');
-        var userStore  = Ext.getStore('UserStore');
-        userStore.removeAt(parseInt(userProfileID));
+    onEditUserProfileDeleteBtnClick : function () {
+        recordDelete()
         Ext.getCmp('UserWindowID').close();
     },
+
     // grid delete btn
     deleteUserGridBtnFn: function () {
-        var userProfileID = localStorage.getItem('userProfileID');
-        var userStore = Ext.getStore('UserStore');
-        var userRec = userStore.getAt(userProfileID)
-        Ext.Msg.alert('Caution', 'Do u really want to delete ' + capitaliseFirstLetter(userRec.data.userName) + ' ' + capitaliseFirstLetter(userRec.data.lastName), function (txt) {
-            if (txt == 'ok') {
-                userStore.removeAt(parseInt(userProfileID));
-            }
-        })
-    }
+        recordDelete()
+    },
 
     // add user in the grid by openning a window to insert user data
-    , addUserBtnFn: function () {
-//		alert('User is added successfully')
-        Ext.create('Ext.window.Window', {
-            title: 'Add User',
-            id: 'addUserWindowID',
-            height: 400,
-            width: 500,
-            modal: true,
-            layout: {
-                type: 'vbox',
-                pack: 'center',
-                align: 'stretch'
-            },
-            bodyCls: 'editPanelBgCls',
-            items: [
-                {
-                    xtype: 'container',
-                    layout: {
-                        type: 'vbox',
-                        align: 'center'
-                    },
-                    margin: '10 0 0 0',
-                    items: [
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'vbox'
-                            },
-                            margin: '0 0 0 250',
-                            items: [
-                                {
-                                    xtype: 'label',
-                                    forId: 'addfirstNameId',
-                                    margin: '5 50 5 0',
-                                    text: 'First Name'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    id: 'addfirstNameTFId',
-                                    fieldStyle: 'height:30px;width:250px;',
-                                    cls: 'textFieldBgCls',
-                                    hideLabel: true
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'vbox'
-                            },
-                            margin: '0 0 0 250',
-                            items: [
-                                {
-                                    xtype: 'label',
-                                    forId: 'addlastNameId',
-                                    margin: '5 50 5 0',
-                                    text: 'Last Name'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    id: 'addlastNameTFId',
-                                    cls: 'textFieldBgCls',
-                                    fieldStyle: 'height:30px;width:250px;',
-                                    hideLabel: true
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'vbox'
-                            },
-                            margin: '0 0 0 250',
-                            items: [
-                                {
-                                    xtype: 'label',
-                                    forId: 'adduserNameId',
-                                    margin: '5 50 5 0',
-                                    text: 'User Name'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    id: 'adduserNameTFId',
-                                    cls: 'textFieldBgCls',
-                                    fieldStyle: 'height:30px;width:250px;',
-                                    hideLabel: true
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'vbox'
-                            },
-                            margin: '0 0 0 0',
-                            items: [
-                                {
-                                    xtype: 'label',
-                                    forId: 'addpasswordId',
-                                    margin: '5 58 5 0',
-                                    text: 'Password'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    inputType: 'password',
-                                    cls: 'textFieldBgCls',
-                                    id: 'addpasswordTFId',
-                                    fieldStyle: 'height:30px;width:250px;',
-                                    hideLabel: true
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'vbox'
-                            },
-                            margin: '0 0 0 35px',
-                            items: [
-                                {
-                                    xtype: 'label',
-                                    forId: 'addconfirmPasswordId',
-                                    margin: '5 15 5 0',
-                                    text: 'Confirm Password'
+    addUserBtnFn: function () {
+           createWindow('userProfile','Add User')
+        // Remove the following code and use addUser component
+        // Keep windows object separate from all inner items
+//                                        click save btn: function () {
+//                                            addBtnSave();
+//                                        }
+//                                {
+//                                        click cancel btn: function () {
+//                                            Ext.getCmp('txtaddfirstName').reset();
+//                                            Ext.getCmp('txtaddlastName').reset();
+//                                            Ext.getCmp('txtaddpassword').reset();
+//                                            Ext.getCmp('txtadduserName').reset();
+//                                            Ext.getCmp('addUserWindowID').close();
+},
 
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    inputType: 'password',
-                                    cls: 'textFieldBgCls',
-                                    id: 'addconfirmPasswordTFId',
-                                    fieldStyle: 'height:30px;width:250px;',
-                                    hideLabel: true
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'hbox'
-                            },
-                            margin: '0 0 20 0',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    margin: '10 0 0 0',
-                                    flex: 2,
-                                    text: 'Save',
-                                    width: 100,
-                                    height: 30,
-                                    cls: 'editProfileBtnCls my-btns',
-                                    listeners: {
-                                        click: function () {
-                                            addBtnSave();
-                                        }
-                                    }
-                                },
-                                {
-                                    xtype: 'button',
-                                    margin: '10 0 0 10',
-                                    flex: 2,
-                                    text: 'Cancel',
-                                    width: 100,
-                                    height: 30,
-                                    cls: 'editProfileBtnCls my-btns',
-                                    listeners: {
-                                        click: function () {
-                                            Ext.getCmp('addUserWindowID').close();
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-
-                    ]
-                }
-            ]
-        }).show();
-//		Ext.Msg.alert('Congrats', 'User is added successfully');
+    actionColumnClick : function(rec){
+        Ext.ComponentQuery.query('textfield[itemId=txteditfirstName]')[0].setValue(rec.get('firstName'));
+        Ext.ComponentQuery.query('textfield[itemId=txteditlastName]')[0].setValue(rec.get('lastName'));
+        Ext.ComponentQuery.query('textfield[itemId=txtedituserName]')[0].setValue(rec.get('userName'));
+        Ext.ComponentQuery.query('textfield[itemId=txteditpassword]')[0].setValue(rec.get('password'));
+        Ext.ComponentQuery.query('textfield[itemId=txteditconfirmPassword]')[0].setValue(rec.get('password'));
     }
 });
 
-
-// add user window data into the store and show on grid
-addBtnSave = function () {
-    var userProfileID = localStorage.getItem('adduserProfileID');
-    var firstName = Ext.getCmp('addfirstNameTFId').getValue();
-    var lastName = Ext.getCmp('addlastNameTFId').getValue();
-    var userName = Ext.getCmp('adduserNameTFId').getValue();
-    var password = Ext.getCmp('addpasswordTFId').getValue();
-    var confirmPassword = Ext.getCmp('addconfirmPasswordTFId').getValue();
-    if (firstName == '' || firstName == undefined) {
-        Ext.Msg.alert('Caution', 'Please enter proper first name');
-        return;
-    }
-    if (lastName == '' || lastName == undefined) {
-        Ext.Msg.alert('Caution', 'Please enter proper last name');
-        return;
-    }
-    if (userName == '' || userName == undefined) {
-        Ext.Msg.alert('Caution', 'Please enter proper user name');
-        return;
-    }
-    if (password == '' || password == undefined) {
-        Ext.Msg.alert('Caution', 'Please enter password');
-        return;
-    }
-    if (confirmPassword == '' || confirmPassword == undefined) {
-        Ext.Msg.alert('Caution', 'Please enter confirm password');
-        return;
-    }
-    if (password != confirmPassword) {
-        Ext.Msg.alert('Caution', 'Password do not match, please try again');
-        return;
-    }
-    var userStore = Ext.getStore('UserStore');
-    userStore.add({
-        firstName: firstName,
-        lastName: lastName,
-        userName: userName,
-        password: password
-    });
-    Ext.getCmp('addUserWindowID').close();
-};

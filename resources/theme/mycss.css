@@ -134,7 +134,7 @@ a:active {
     background-color: #043453 !important;
 }
  /*sencha logo background clas*/
-.mainSenchaLogoImgCls {
+.mainSenchaCls {
     background: linear-gradient(bottom, #085C88 0%,#085C88 0%,#085C88 100%); /* W3C */
     background: -webkit-linear-gradient(top, #064C79 0%,#064C79 0%,#064C79 100%);
 }
@@ -359,6 +359,10 @@ a:active {
     /*text-decoration-color: #FFFFFF !important;*/
 }
 
+.toolbarBgColorCls {
+    background:#043453 !important
+    text-decoration: underline !important;
+}
 .borderRaduisConCls {
     background: #FFFFFF !important;
     border-color: red;
@@ -382,7 +386,7 @@ a:active {
 .userTabPanelBorderCls {
     background-color : #FFFFFF !important;
     border: 2px;
-    border-top-left-radius: 12px !important;
+    border-top-left-radius: 1px !important;
 }
 
 .borderColorGradientCls {
@@ -399,7 +403,9 @@ a:active {
 .senchaMainWhiteClr {
     background-color: #F8F8F8 !important;
     min-height: 1000px;
-    border-right-width: 10px;
+    border-left-width: 10px;
+    border: 5px;
+    border-right-color: #C65E94;
 
 }
 
@@ -412,7 +418,16 @@ a:active {
     -moz-border-image:-moz-linear-gradient(#BBBBBB, #F8F8F8) 1 100%;
 }
 
-.editPanelBgCls {
+.side-panel-bottom-box-right {
+    background: transparent;
+    border-width: 0 0 0 0;
+    -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#BBBBBB), to(#F8F8F8)) 1 100%;
+    -webkit-border-image: -webkit-linear-gradient(#BBBBBB, #F8F8F8) 1 100%;
+    -o-border-image: -o-linear-gradient(#BBBBBB, #F8F8F8) 1 100%;
+    -moz-border-image: -moz-linear-gradient(#BBBBBB, #F8F8F8) 1 100%;
+}
+
+.addEditPanelBgCls {
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #eff0f4 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#eff0f4)); /* Chrome,Safari4+ */
@@ -485,3 +500,25 @@ a:active {
     /*border-top-right-radius: 15px;*/
     /*border-top-left-radius: 15px;*/
 /*}*/
+
+.profileLeftPanelBgCls {
+
+    border-left-color: #C6C6C6;
+    border-right-color: #F7F7F7;
+    border-bottom-color: #F7F7F7;
+    border-top-color: #F7F7F7;
+    border-style: dotted;
+    background-color: #F7F7F7 !important;
+
+}
+
+.mainLeftRightBlurBorderCls {
+    background: #dddddd; /* Old browsers */
+    background: -moz-linear-gradient(top, #dddddd 0%, #f8f8f8 70%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(70%,#f8f8f8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #dddddd 0%,#f8f8f8 70%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #dddddd 0%,#f8f8f8 70%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #dddddd 0%,#f8f8f8 70%); /* IE10+ */
+    background: linear-gradient(to bottom, #dddddd 0%,#f8f8f8 70%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-9 */
+}

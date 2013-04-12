@@ -1,7 +1,6 @@
-Ext.define('UserManagement.view.user.User', {
+Ext.define('UserManagement.view.user.UserList', {
     extend: 'Ext.tab.Panel',
-    xtype: 'userList',
-    id: 'UserListID',
+    alias: 'widget.userList',
     requires: [
         'Ext.toolbar.Paging',
         'Ext.ux.ProgressBarPager',
@@ -9,27 +8,21 @@ Ext.define('UserManagement.view.user.User', {
         'Ext.tip.QuickTipManager',
         'Ext.data.*',
         'Ext.grid.*',
-        'Ext.util.*',
-        'Ext.tip.QuickTipManager',
         'Ext.ux.data.PagingMemoryProxy',
-        'Ext.grid.CellEditor',
-        'Ext.grid.plugin.CellEditing',
-        'Ext.grid.plugin.RowEditing',
         'Ext.form.field.Text',
-        'Ext.toolbar.TextItem'
+        'Ext.toolbar.TextItem' ,
+        'Ext.ux.PreviewPlugin'
     ],
     layout: {
         type: 'vbox',
         pack: 'center',
         align: 'stretch'
     },
-    activeTab: 0,
     width: '100%',
+    id: 'userListID',
+    plain : true,
     flex: 1,
-    margin: 10,
-    plain: true,
-    itemCls: 'middle-panel',
-    cls: 'userTabPanelSideColorCls userTabPanelBorderCls middle-panel',
+    cls: 'userTabPanelSideColorCls userTabPanelBorderCls',
     margin: '2% 2% 2% 2%',
     items: [
         {
@@ -40,7 +33,6 @@ Ext.define('UserManagement.view.user.User', {
                     minWidth: 500,
                     minHeight: 447,
                     flex: 1,
-                    frame: true,
                     loadMask: true,
                     id: 'userListGridID',
                     name: 'gridpanelName',
@@ -87,16 +79,12 @@ Ext.define('UserManagement.view.user.User', {
                                     xtype: 'button',
                                     icon: 'resources/images/edit.png',
                                     tooltip: 'Edit user profile',
-                                    handler: function (grid, rowIndex, colIndex) {
+                                        handler: function (grid, rowIndex, colIndex) {
                                         var rec = grid.getStore().getAt(rowIndex);
-                                        createWindow('editableUserProfile', capitaliseFirstLetter(rec.get('firstName')) + ' ' + capitaliseFirstLetter(rec.get('lastName')) + ' <br>' + rec.get('email') + ' ');
+                                        createWindow('editableUserProfile', capitaliseFirstLetter(rec.get('firstName')) + ' ' + capitaliseFirstLetter(rec.get('lastName')) + ' <br>' + rec.get('email'), rec);
                                         localStorage.setItem('userProfileID', rowIndex)
                                         localStorage.setItem('userProfileDataID', rec.get('id'))
-                                        Ext.getCmp('editfirstNameTFId').setValue(rec.get('firstName'));
-                                        Ext.getCmp('editlastNameTFId').setValue(rec.get('lastName'));
-                                        Ext.getCmp('edituserNameTFId').setValue(rec.get('userName'));
-                                        Ext.getCmp('editpasswordTFId').setValue(rec.get('password'));
-                                        Ext.getCmp('editconfirmPasswordTFId').setValue(rec.get('password'));
+                                        UserManagement.getController('userController').actionColumnClick(rec)
                                     }
                                 }
                             ]
@@ -107,13 +95,6 @@ Ext.define('UserManagement.view.user.User', {
                     resizable: {
                         handles: 's'
                     },
-//                    plugins: [
-//                        Ext.create('Ext.grid.plugin.RowEditing', {
-//                            // Ext.grid.plugin.RowEditing
-//                            // Ext.grid.plugin.CellEditing
-//                            clicksToEdit: 2
-//                        })
-//                    ],
                     viewConfig: {
                         plugins: {
                             ptype: 'gridviewdragdrop',
@@ -136,7 +117,6 @@ Ext.define('UserManagement.view.user.User', {
                                 text: 'Delete',
                                 cls: 'userGridTbarBtnCls',
                                 scope: this,
-//                                handler: this.onDeleteClick,
                                 action: 'deleteUserGridBtnAction',
                                 tooltip: "Delete User",
                                 itemId: 'delete'
@@ -163,14 +143,3 @@ Ext.define('UserManagement.view.user.User', {
         }
     ]
 });
-
-
-change = function (val) {
-    if (val > 0) {
-        return '<span style="color:green;">' + val + '</span>';
-    } else if (val < 0) {
-        return '<span style="color:red;">' + val + '</span>';
-    }
-    return val
-}
-

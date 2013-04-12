@@ -4,21 +4,29 @@
  */
 
 Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Container',
-    xtype: 'userProfile',
+    alias: 'widget.userProfile',
     layout: {
         type: 'vbox',
         pack: 'center',
         align: 'stretch'
     },
-    cls: 'editPanelBgCls ',
+//    requires : ['UserManagement.view.user.UserList'],
+    cls: 'addEditPanelBgCls ',
+    minWidth: 500,
+    minHeight: 447,
     items: [
         {
-            xtype: 'container',
+            xtype: 'form',
             layout: {
                 type: 'vbox',
                 align: 'center'
             },
+            id : 'userProfileForm',
+            baseCls: 'addEditPanelBgCls ',
             margin: '10 0 0 0',
+            deafult : {
+                blankText : 'should not be blank'
+            },
             items: [
                 {
                     xtype: 'container',
@@ -29,17 +37,17 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                     items: [
                         {
                             xtype: 'label',
-                            forId: 'firstNameId',
+                            forId: 'firstName',
                             margin: '5 50 5 0',
-                            text: 'First Name'
+                            text: 'First Names'
                         },
                         {
                             xtype: 'textfield',
-//                             width : '100%',
-                            id: 'firstNameTFId',
+                            itemId : 'txtfirstName',
                             fieldStyle: 'height:30px;width:250px;',
                             cls: 'textFieldBgCls',
-                            hideLabel: true
+
+                            allowBlank : false
                         }
                     ]
                 },
@@ -52,16 +60,16 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                     items: [
                         {
                             xtype: 'label',
-                            forId: 'lastNameId',
+                            forId: 'lastName',
                             margin: '5 50 5 0',
                             text: 'Last Name'
                         },
                         {
                             xtype: 'textfield',
-                            id: 'lastNameTFId',
+                            itemId : 'txtlastName',
                             cls: 'textFieldBgCls',
-                            fieldStyle: 'height:30px;width:250px;',
-                            hideLabel: true
+                            allowBlank : false,
+                            fieldStyle: 'height:30px;width:250px;'
                         }
                     ]
                 },
@@ -74,16 +82,43 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                     items: [
                         {
                             xtype: 'label',
-                            forId: 'userNameId',
+                            forId: 'userName',
                             margin: '5 50 5 0',
                             text: 'User Name'
                         },
                         {
                             xtype: 'textfield',
-                            id: 'userNameTFId',
+                            itemId : 'txtuserName',
                             cls: 'textFieldBgCls',
-                            fieldStyle: 'height:30px;width:250px;',
-                            hideLabel: true
+                            allowBlank : false,
+                            fieldStyle: 'height:30px;width:250px;'
+                        }
+                    ]
+                }, {
+                    xtype: 'container',
+                    layout: {
+                        type: 'vbox',
+                        pack : 'left'
+
+                    },
+                    margin: '0 0 0 0',
+                    items: [
+                        {
+                            xtype: 'label',
+                            forId: 'Country',
+                            margin: '5 58 5 0',
+                            text: 'Choose Country'
+                        },
+                        {
+                            xtype : 'combo',
+                            store: 'CountryStore',
+                            width : 250,
+                            ui : 'round',
+                            queryMode: 'local',
+                            cls: 'textFieldBgCls',
+                            fieldStyle: 'height:24px;width:250px;',
+                            displayField: 'countryName',
+                            valueField: 'countryName'
                         }
                     ]
                 },
@@ -96,7 +131,7 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                     items: [
                         {
                             xtype: 'label',
-                            forId: 'passwordId',
+                            forId: 'password',
                             margin: '5 58 5 0',
                             text: 'Password'
                         },
@@ -104,9 +139,9 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                             xtype: 'textfield',
                             inputType: 'password',
                             cls: 'textFieldBgCls',
-                            id: 'passwordTFId',
-                            fieldStyle: 'height:30px;width:250px;',
-                            hideLabel: true
+                            itemId : 'txtpassword',
+                            allowBlank : false,
+                            fieldStyle: 'height:30px;width:250px;'
                         }
                     ]
                 },
@@ -119,18 +154,17 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                     items: [
                         {
                             xtype: 'label',
-                            forId: 'confirmPasswordId',
+                            forId: 'confirmPassword',
                             margin: '5 15 5 0',
                             text: 'Confirm Password'
                         },
                         {
                             xtype: 'textfield',
                             inputType: 'password',
-//				        	 readOnly : true,
                             cls: 'textFieldBgCls',
-                            id: 'confirmPasswordTFId',
-                            fieldStyle: 'height:30px;width:250px;',
-                            hideLabel: true
+                            itemId : 'txtconfirmPassword',
+                            allowBlank : false,
+                            fieldStyle: 'height:30px;width:250px;'
                         }
                     ]
                 },
@@ -143,34 +177,24 @@ Ext.define('UserManagement.view.user.UserProfile', {extend: 'Ext.container.Conta
                     items: [
                         {
                             xtype: 'button',
+                            formBind: true, //only enabled once the form is valid
+                            disabled: true,
                             margin: '10 0 0 0',
-                            flex: 2,
                             text: 'Save',
                             width: 100,
                             height: 30,
                             cls: 'editProfileBtnCls my-btns',
-                            listeners: {
-                                click: function () {
-                                    Ext.getCmp('ProfileID').getLayout().setActiveItem(1)
-                                }
-                            }
+                            action: 'userProfileSaveBtnAction'
                         },
                         {
                             xtype: 'button',
                             margin: '10 0 0 10',
-                            flex: 2,
-                            text: 'Delete',
+                            text: 'Cancels',
                             width: 100,
                             height: 30,
                             cls: 'editProfileBtnCls my-btns',
-                            listeners: {
-                                click: function () {
-                                    Ext.getCmp('UserWindowID').close()
-                                }
-                            }
+                            action: 'userProfileCancelBtnAction'
                         }
-
-
                     ]
                 }
             ]
